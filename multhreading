@@ -1,0 +1,78 @@
+package threading;
+import java.util.Scanner;
+
+
+class multithread extends Thread{
+	int[] a,b;
+	private Thread t;
+	 String thread_name;
+	
+	 multithread(int[] a,int[] b,String thread_name)
+	{
+		 this.a=a;
+		 this.b=b;
+		 this.thread_name=thread_name;
+	}
+	
+	public void run()
+	{
+		int pos=0;
+		for(int i=0;i<2;i++)
+			pos+=(a[i]*b[i]);
+		System.out.println(" "+pos+" ");
+	}
+	
+	public void start()
+	{
+		t=new Thread(this,thread_name);
+		t.start();
+		
+	}
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner("System.in");
+		int[] r1= { 0,0};
+		int[] r2= { 0,0};
+		int[] c1= { 0,0};
+		int[] c2= { 0,0};
+	for (int i=0;i<2;i++)
+		{
+		
+			int x=sc.nextInt();
+			r1[i]=x;
+			
+		}
+		for(int i=0;i<2;i++)
+		{
+		
+			int x=sc.nextInt();
+			r2[i]=x;
+			
+		}
+		
+		int j=0;
+		for(int i=0;i<4;i++)
+		{
+			int x=sc.nextInt();
+			if(i%2==0)
+			c1[j]=x;
+			else
+			{
+				c2[j]=x;
+				j++;
+			}	
+		}
+		multithread g1=new multithread(r1,c1,"thread1");
+		g1.start();
+		multithread g2=new multithread(r1,c2,"thread2");
+		g2.start();
+		multithread g3=new multithread(r2,c1,"thread3");
+		g3.start();
+		multithread g4=new multithread(r2,c2,"thread4");
+		g4.start();
+		for(int i = 0; i < 10000000; i++){}
+		// TODO Auto-generated method stub
+
+	}
+
+}
